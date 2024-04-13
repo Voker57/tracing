@@ -924,7 +924,7 @@ mod tests {
 
     #[test]
     fn callsite_enabled_includes_span_directive_multiple_fields() {
-        let filter = EnvFilter::new("app[mySpan{field=\"value\",field2=2}]=debug")
+        let filter = EnvFilter::try_new("app[mySpan{field=\"value\",field2=2}]=debug").unwrap()
             .with_collector(NoCollector);
         static META: &Metadata<'static> = &Metadata::new(
             "mySpan",
