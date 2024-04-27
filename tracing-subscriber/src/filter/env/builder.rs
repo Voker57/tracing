@@ -136,7 +136,7 @@ impl Builder {
     pub fn parse_lossy<S: AsRef<str>>(&self, dirs: S) -> EnvFilter {
         let directives = dirs
             .as_ref()
-            .split(',')
+            .split('+')
             .filter(|s| !s.is_empty())
             .filter_map(|s| match Directive::parse(s, self.regex) {
                 Ok(d) => Some(d),
@@ -156,7 +156,7 @@ impl Builder {
             return Ok(self.from_directives(std::iter::empty()));
         }
         let directives = dirs
-            .split(',')
+            .split('+')
             .filter(|s| !s.is_empty())
             .map(|s| Directive::parse(s, self.regex))
             .collect::<Result<Vec<_>, _>>()?;
